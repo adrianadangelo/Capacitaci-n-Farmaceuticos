@@ -40,7 +40,7 @@ nav.tabs{position:sticky;top:0;z-index:20;background:var(--navy);display:flex;ga
 nav.tabs button{background:none;border:none;color:#B9C9E8;font-size:14px;font-weight:700;padding:16px 16px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-4px}
 nav.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:#fff}
 
-main{max-width:1180px;margin:0 auto;padding:44px 24px 96px}
+main{max-width:1320px;margin:0 auto;padding:44px 24px 96px}
 .view{display:none}.view.active{display:block}
 h2{font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px}
 @media (prefers-color-scheme: dark){h2{color:#fff}}
@@ -67,20 +67,36 @@ h2{font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px}
 .dcard.pin{background:var(--navy);color:#fff;border-color:var(--navy)}
 .dcard.pin h3{color:#fff}.dcard.pin p{color:#D3DDF0}.dcard.pin .mod{color:var(--sky)}
 
-/* Gantt */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
-.chip i{width:10px;height:10px;border-radius:50%;background:var(--c)}
-.chip[aria-pressed="false"]{opacity:.45}
-.gwrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
-.gantt{display:grid;grid-template-columns:240px repeat(12,minmax(62px,1fr));min-width:980px}
-.gh{font-size:12px;font-weight:700;color:var(--muted);padding:12px 6px;text-align:center;border-bottom:1px solid var(--line);background:var(--soft)}
-.gh.first{text-align:left;padding-left:16px}
-.gl{font-size:13px;font-weight:700;padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center}
-.gl.sub{font-weight:500;padding-left:30px;color:var(--muted)}
-.gc{border-bottom:1px solid var(--line);border-left:1px solid var(--line);position:relative;min-height:46px}
-.bar{position:absolute;top:8px;bottom:8px;border-radius:8px;background:var(--c);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;padding:0 10px;cursor:pointer;border:none;text-align:left;overflow:hidden;white-space:nowrap;z-index:1}
-.bar.light{color:#001E62}
+/* Resumen */
+.slabel{display:flex;align-items:center;gap:14px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.slabel::after{content:'';flex:1;height:1px;background:var(--line)}
+.sumwrap{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;overflow-x:auto;margin-bottom:44px}
+.sum{width:100%;border-collapse:collapse;min-width:900px}
+.sum th{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:18px 18px;background:var(--soft);border-bottom:1px solid var(--line)}
+.sum td{padding:18px;border-bottom:1px solid var(--line);vertical-align:middle;font-size:15px}
+.sum tr:last-child td{border-bottom:none}
+.sum tr.clk{cursor:pointer}.sum tr.clk:hover td{background:var(--soft)}
+.fcell{border-left:4px solid var(--c);padding-left:14px}
+.eyebrow{display:block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--c)}
+.ftitle{display:block;font-size:16px;font-weight:800;line-height:1.3}
+.sum td.date{font-weight:700;white-space:nowrap}
+.sum td.pop{color:var(--muted)}
+.sum td.resp{font-weight:700;color:var(--navy)}
+@media (prefers-color-scheme: dark){.sum td.resp{color:#fff}}
+.tlwrap{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow-x:auto}
+.tl{display:grid;grid-template-columns:240px repeat(13,minmax(70px,1fr));min-width:1150px;position:relative}
+.tlh{color:#fff;text-align:center;font-size:13px;font-weight:800;padding:12px 4px;line-height:1.15}
+.tlh small{display:block;font-size:11px;font-weight:700;opacity:.8}
+.tlh.corner{background:var(--card)}
+.tll{padding:16px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;justify-content:center}
+.tll b{font-size:15px;font-weight:800;line-height:1.25}
+.tll span{font-size:12px;color:var(--muted);margin-top:3px}
+.tlc{border-bottom:1px solid var(--line);border-left:1px dashed var(--line);position:relative;min-height:88px}
+.blk{position:absolute;top:12px;bottom:12px;left:3px;background:var(--c);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:12px;font-weight:800;line-height:1.25;padding:8px 9px;text-align:left;cursor:pointer;overflow:hidden;z-index:1;hyphens:manual}
+.blk small{display:block;font-weight:600;opacity:.9}
+.blk.light{color:#001E62}
+.today{position:absolute;top:0;bottom:0;width:2px;background:#E5484D;z-index:3;pointer-events:none}
+.today span{position:absolute;top:56px;left:6px;font-size:11px;font-weight:800;color:#E5484D;white-space:nowrap}
 
 /* Status */
 .skpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
@@ -140,15 +156,22 @@ select,.btn{font-family:inherit;font-size:14px;font-weight:600;border:1px solid 
 </header>
 
 <nav class="tabs" role="tablist" aria-label="Secciones">
-  <button role="tab" aria-selected="true" data-view="v-act">Actividades</button>
+  <button role="tab" aria-selected="true" data-view="v-res">Resumen</button>
+  <button role="tab" aria-selected="false" data-view="v-act">Actividades</button>
   <button role="tab" aria-selected="false" data-view="v-pa">Práctica Aplicada</button>
-  <button role="tab" aria-selected="false" data-view="v-cron">Cronograma</button>
   <button role="tab" aria-selected="false" data-view="v-est">Estatus en vivo</button>
   <button role="tab" aria-selected="false" data-view="v-areas">Áreas y facilitadores</button>
 </nav>
 
 <main>
-  <section class="view active" id="v-act">
+  <section class="view active" id="v-res">
+    <div class="slabel">Resumen: actividades del Campus Farmacéutico Venezuela</div>
+    <div class="sumwrap"><table class="sum" id="sumTbl"></table></div>
+    <div class="slabel">Línea de tiempo por mes</div>
+    <div class="tlwrap"><div class="tl" id="tl"></div></div>
+  </section>
+
+  <section class="view" id="v-act">
     <h2>Siete actividades, en orden</h2>
     <p class="intro">Las actividades 3 y 4 ocurren en paralelo. La medición de NPS es transversal: empieza con la línea base y se lee cada mes. Toca una actividad para ver el detalle.</p>
     <div class="flow" id="flow"></div>
@@ -159,13 +182,6 @@ select,.btn{font-family:inherit;font-size:14px;font-weight:600;border:1px solid 
     <h2>Práctica Aplicada en las salas de área</h2>
     <p class="intro">Cada módulo tiene un taller de 2,5 horas en la sala del área, dictado por sus dos facilitadores, y un reto que se lleva a la tienda durante el mes. Todos los participantes viven la dinámica: si es para pocos, se repite hasta que todos hayan pasado. Toca una dinámica para ver su instructivo.</p>
     <div class="dyn" id="dyn"></div>
-  </section>
-
-  <section class="view" id="v-cron">
-    <h2>Cronograma</h2>
-    <p class="intro">Cada módulo de etapa de vida ocupa dos meses: el primero es el ciclo 1 (instalar) y el segundo el ciclo 2 (reforzar y recuperar ausentes). Filtra por actividad o toca una barra para ver el detalle.</p>
-    <div class="chips" id="chips"></div>
-    <div class="gwrap"><div class="gantt" id="gantt"></div></div>
   </section>
 
   <section class="view" id="v-est">
@@ -213,28 +229,28 @@ const CONFIG = {
   }))
 };
 
-const MESES = [['2026-11','Nov 26'],['2026-12','Dic'],['2027-01','Ene 27'],['2027-02','Feb'],['2027-03','Mar'],['2027-04','Abr'],['2027-05','May'],['2027-06','Jun'],['2027-07','Jul'],['2027-08','Ago'],['2027-09','Sep'],['2027-10','Oct']];
+const MESES = [['2026-10','Oct 26'],['2026-11','Nov 26'],['2026-12','Dic'],['2027-01','Ene 27'],['2027-02','Feb'],['2027-03','Mar'],['2027-04','Abr'],['2027-05','May'],['2027-06','Jun'],['2027-07','Jul'],['2027-08','Ago'],['2027-09','Sep'],['2027-10','Oct']];
 
 const ACTIVIDADES = [
-  { id:1, corto:'Preparación', nombre:'Preparación del plan', c:'--c1', ini:'2026-11', fin:'2026-12',
+  { id:1, eyebrow:'Preparación', corto:'Preparación', nombre:'Preparación del plan', c:'--c1', ini:'2026-11', fin:'2026-12',
     poblacion:'Gerencia de Capacitación', duracion:'2 meses', responsable:'Gerencia de Capacitación',
     contenido:'Validación académica de los contenidos, kit del facilitador (guía minuto a minuto, presentaciones, casos y rúbricas), calendario de salas por área y materiales de las dinámicas.' },
-  { id:2, corto:'Formación de facilitadores', nombre:'Formación de Farmacéuticos Facilitadores', c:'--c2', ini:'2026-11', fin:'2027-03',
+  { id:2, eyebrow:'Facilitadores', corto:'Formación de facilitadores', nombre:'Formación de Farmacéuticos Facilitadores', c:'--c2', ini:'2026-11', fin:'2027-03',
     poblacion:'32 farmacéuticos: 2 por cada una de las 16 áreas', duracion:'Taller de 16 horas · 2 cohortes de 16', responsable:'Gerencia de Capacitación',
     contenido:'Selección en noviembre; formación en dos cohortes (noviembre y diciembre) en aprendizaje adulto, facilitación de role play, manejo de grupo y retroalimentación. Co-facilitan junto a Capacitación en el piloto y se certifican con un taller observado.' },
-  { id:3, corto:'Dispensación con propósito', nombre:'Taller Dispensación con propósito', c:'--c3', ini:'2027-01', fin:'2027-06',
+  { id:3, eyebrow:'Introductorio', corto:'Dispensación con propósito', nombre:'Taller Dispensación con propósito', c:'--c3', ini:'2027-01', fin:'2027-06',
     poblacion:'Farmacéuticos de todas las tiendas · 1 por tienda en cada grupo', duracion:'2,5 horas', responsable:'Facilitadores del área (piloto con Capacitación)',
     contenido:'Protocolo de asesoría en 5 pasos: saludar y escuchar, preguntar con intención, aconsejar con claridad, verificar comprensión y cerrar con seguimiento. Piloto en una región en enero y febrero; despliegue nacional de marzo a junio.' },
-  { id:4, corto:'Atención en el mostrador', nombre:'Taller Atención en el mostrador', c:'--c4', ini:'2027-01', fin:'2027-06',
+  { id:4, eyebrow:'Introductorio', corto:'Atención en el mostrador', nombre:'Taller Atención en el mostrador', c:'--c4', ini:'2027-01', fin:'2027-06',
     poblacion:'Auxiliares de farmacia', duracion:'Por confirmar', responsable:'Facilitadores del área',
     contenido:'Ruta paralela para Auxiliares, para que el cliente reciba el mismo estándar de servicio en todo el mostrador.' },
-  { id:5, corto:'Práctica Aplicada', nombre:'Práctica Aplicada · Consejo por etapa de vida', c:'--c5', ini:'2027-01', fin:'2027-10',
+  { id:5, eyebrow:'Práctica Aplicada · 2 ciclos', corto:'Práctica Aplicada', nombre:'Práctica Aplicada · Consejo por etapa de vida', c:'--c5', ini:'2027-01', fin:'2027-10',
     poblacion:'Farmacéuticos · 1 por tienda en cada grupo', duracion:'2,5 horas por taller + reto del mes en tienda', responsable:'Facilitadores del área',
     contenido:'Un módulo cada dos meses, en dos ciclos: GLP-1, adulto mayor, menopausia, salud de la mujer y antienvejecimiento. Cada módulo tiene su dinámica propia y un reto en tienda.' },
-  { id:6, corto:'Certificación', nombre:'Certificación Asesor de Salud Farmatodo', c:'--c7', ini:'2027-07', fin:'2027-10',
+  { id:6, eyebrow:'Certificación', corto:'Certificación', nombre:'Certificación Asesor de Salud Farmatodo', c:'--c7', ini:'2027-07', fin:'2027-10',
     poblacion:'Farmacéuticos que completan la ruta', duracion:'Evaluación práctica', responsable:'Facilitadores del área con Capacitación',
     contenido:'Evaluación práctica con cliente simulado y observación del Regente en tienda. Distintivo visible para el cliente.' },
-  { id:7, corto:'Medición NPS', nombre:'Línea base y medición del NPS', c:'--c6', ini:'2026-11', fin:'2027-10', transversal:true,
+  { id:7, eyebrow:'Transversal', corto:'Medición NPS', nombre:'Línea base y medición del NPS', c:'--c6', ini:'2026-11', fin:'2027-10', transversal:true,
     poblacion:'Todas las tiendas', duracion:'Lectura mensual', responsable:'Capacitación con Experiencia del Cliente',
     contenido:'Línea base de NPS por tienda en noviembre y diciembre. Lectura mensual comparando tiendas formadas con tiendas aún no formadas. Nueva pregunta en la encuesta: «¿El farmacéutico te asesoró?».' }
 ];
@@ -347,32 +363,62 @@ $('dyn').innerHTML = DINAMICAS.map(d => {
     <span class="mod">${esc(d.modulo)}${when}</span><h3>${esc(d.nombre)}</h3><p>${esc(d.resumen)}</p></button>`;
 }).join('');
 
-// Render: gantt
-const visibles = new Set(ACTIVIDADES.map(a => a.id));
-$('chips').innerHTML = ACTIVIDADES.map(a => `<button class="chip" aria-pressed="true" data-id="${a.id}" style="--c:var(${a.c})"><i></i>${esc(a.corto)}</button>`).join('');
-$('chips').querySelectorAll('.chip').forEach(ch => ch.addEventListener('click', () => {
-  const id = +ch.dataset.id; visibles.has(id) ? visibles.delete(id) : visibles.add(id);
-  ch.setAttribute('aria-pressed', visibles.has(id)); renderGantt();
-}));
-function row(label, ini, fin, c, onclick, sub, light){
-  const s = mi(ini), e = mi(fin);
-  let h = `<div class="gl${sub ? ' sub' : ''}">${esc(label)}</div>`;
-  for (let i = 0; i < 12; i++) {
-    h += `<div class="gc">`;
-    if (i === s) h += `<button class="bar${light ? ' light' : ''}" style="--c:var(${c});left:4px;width:calc(${(e - s + 1) * 100}% - 8px + ${(e - s)}px)" onclick="${onclick}">${sub ? 'Ciclo 1 · Ciclo 2' : rango(ini, fin)}</button>`;
-    h += `</div>`;
-  }
-  return h;
-}
-function renderGantt(){
-  let h = `<div class="gh first">Actividad</div>` + MESES.map(m => `<div class="gh">${m[1]}</div>`).join('');
-  ACTIVIDADES.filter(a => visibles.has(a.id)).forEach(a => {
-    h += row(a.nombre, a.ini, a.fin, a.c, `showAct(${a.id})`, false, a.c === '--c2' || a.c === '--c1');
-    if (a.id === 5) MODULOS.forEach(m => { h += row(m.nombre, m.ini, m.fin, '--c5', `showDyn('${m.dyn}')`, true); });
+// Render: resumen
+const MES_LARGO = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const mesLargo = ym => { const [y,m] = ym.split('-'); return `${MES_LARGO[+m - 1]} ${y}`; };
+$('sumTbl').innerHTML = `<tr><th>Formación</th><th>Inicio</th><th>Fin</th><th>Población objetivo</th><th>Responsable</th></tr>` +
+  ACTIVIDADES.map(a => `<tr class="clk" tabindex="0" onclick="showAct(${a.id})" onkeydown="if(event.key==='Enter')showAct(${a.id})">
+    <td><div class="fcell" style="--c:var(${a.c})"><span class="eyebrow">${esc(a.eyebrow)}</span><span class="ftitle">${esc(a.nombre)}</span></div></td>
+    <td class="date">${mesLargo(a.ini)}</td><td class="date">${mesLargo(a.fin)}</td>
+    <td class="pop">${esc(a.poblacion)}</td><td class="resp">${esc(a.responsable)}</td></tr>`).join('');
+
+// Línea de tiempo: filas y bloques (ini/fin en AAAA-MM)
+const TL = [
+  { t:'Preparación', s:'Contenidos, kit y salas', act:1, blocks:[ { ini:'2026-11', fin:'2026-12', l:'Nov – Dic', sub:'Contenidos, kit y salas', c:'--c1', light:true } ] },
+  { t:'Facilitadores', s:'32 farmacéuticos · 2 por área', act:2, blocks:[
+      { ini:'2026-11', fin:'2026-11', l:'Cohorte 1', sub:'16 h', c:'--c2', light:true },
+      { ini:'2026-12', fin:'2026-12', l:'Cohorte 2', sub:'16 h', c:'--c2', light:true },
+      { ini:'2027-01', fin:'2027-02', l:'Co-facilitación', sub:'En el piloto', c:'--c2', light:true },
+      { ini:'2027-03', fin:'2027-03', l:'Certifi&shy;cación', sub:'Observada', c:'--c7' } ] },
+  { t:'Introductorio', s:'Dispensación con propósito · Farmacéuticos', act:3, blocks:[
+      { ini:'2027-01', fin:'2027-02', l:'Piloto', sub:'1 región', c:'--c3' },
+      { ini:'2027-03', fin:'2027-06', l:'Despliegue nacional', sub:'Salas de las 16 áreas', c:'--c3' } ] },
+  { t:'Introductorio', s:'Atención en el mostrador · Auxiliares', act:4, blocks:[
+      { ini:'2027-01', fin:'2027-02', l:'Piloto', sub:'1 región', c:'--c4' },
+      { ini:'2027-03', fin:'2027-06', l:'Despliegue nacional', sub:'Salas de las 16 áreas', c:'--c4' } ] },
+  { t:'Práctica Aplicada', s:'Etapa de vida · Enero – Octubre 2027', act:5, blocks: MODULOS.flatMap(m => {
+      const corto = { glp1:'GLP-1', mayor:'Adulto mayor', meno:'Meno&shy;pausia', mujer:'Salud de la mujer', anti:'Antienve&shy;jecimiento' }[m.dyn];
+      return [ { ini:m.ini, fin:m.ini, l:corto, sub:'Ciclo 1', c:'--c5', dyn:m.dyn }, { ini:m.fin, fin:m.fin, l:corto, sub:'Ciclo 2', c:'--c4', dyn:m.dyn } ]; }) },
+  { t:'Certificación', s:'Asesor de Salud Farmatodo', act:6, blocks:[ { ini:'2027-07', fin:'2027-10', l:'Jul – Oct', sub:'Cliente simulado y observación en tienda', c:'--c7' } ] },
+  { t:'Medición NPS', s:'Transversal', act:7, blocks:[
+      { ini:'2026-11', fin:'2026-12', l:'Línea base', sub:'Por tienda', c:'--c6' },
+      { ini:'2027-01', fin:'2027-10', l:'Lectura mensual', sub:'Tiendas formadas vs. no formadas', c:'--c6' } ] }
+];
+function renderTL(){
+  const N = MESES.length;
+  let h = `<div class="tlh corner"></div>` + MESES.map((m,i) => { const [y,mm] = m[0].split('-');
+    return `<div class="tlh" style="background:${i % 2 ? '#2350B5' : '#001E62'}">${MES_LARGO[+mm - 1].slice(0,3).toUpperCase()}<small>${y}</small></div>`; }).join('');
+  TL.forEach(r => {
+    h += `<div class="tll"><b>${esc(r.t)}</b><span>${esc(r.s)}</span></div>`;
+    for (let i = 0; i < N; i++) {
+      h += '<div class="tlc">';
+      r.blocks.filter(b => mi(b.ini) === i).forEach(b => {
+        const n = mi(b.fin) - mi(b.ini) + 1;
+        const click = b.dyn ? `showDyn('${b.dyn}')` : `showAct(${r.act})`;
+        h += `<button class="blk${b.light ? ' light' : ''}" style="--c:var(${b.c});width:calc(${n * 100}% - 6px + ${n - 1}px)" onclick="${click}">${b.l}<small>${esc(b.sub)}</small></button>`;
+      });
+      h += '</div>';
+    }
   });
-  $('gantt').innerHTML = h;
+  // Línea de hoy
+  const hoy = new Date(); const ym = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2,'0')}`; const idx = mi(ym);
+  if (idx >= 0) {
+    const frac = (hoy.getDate() - 1) / new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0).getDate();
+    h += `<div class="today" style="left:calc(240px + (100% - 240px) * ${(idx + frac) / N})"><span>Hoy</span></div>`;
+  }
+  $('tl').innerHTML = h;
 }
-renderGantt();
+renderTL();
 
 // Render: areas table
 const pend = v => v ? esc(v) : '<span>Por definir</span>';
