@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Farmacéutico Venezuela · Plan de Capacitación</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#001E62; --blue:#418FDE; --sky:#00A6DC; --ink:#14213D; --muted:#4A5B7A;
+  --bg:#F0F4FB; --card:#FFFFFF; --line:#D5DFEE; --soft:#E6EDF8;
+  --c1:#7A8FB8; --c2:#00A6DC; --c3:#001E62; --c4:#2E6FBF; --c5:#418FDE; --c6:#5B6B8C; --c7:#0B7A75;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --ink:#E8EEF8; --muted:#A9B8D3; --bg:#0A1430; --card:#121F45; --line:#26366A; --soft:#1A2A57; --c3:#6F9BEA; color-scheme: dark; }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button{font-family:inherit}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* Hero */
+.hero{background:var(--navy);color:#fff;padding:44px 6vw 0;position:relative;overflow:hidden}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.hero-logo{height:72px;width:auto}
+.hero-place{font-size:14px;font-weight:600;color:#B9C9E8}
+.hero h1{font-size:clamp(30px,4.4vw,54px);font-weight:800;line-height:1.08;margin:28px 0 12px;max-width:880px}
+.hero p.lead{font-size:17px;color:#D3DDF0;max-width:720px}
+.kpis{display:flex;flex-wrap:wrap;margin-top:36px;border-top:1px solid rgba(255,255,255,.14)}
+.kpi{padding:22px 36px 22px 0;margin-right:36px;border-right:1px solid rgba(255,255,255,.14)}
+.kpi:last-child{border-right:none}
+.kpi b{display:block;font-size:34px;font-weight:800;line-height:1}
+.kpi span{font-size:13px;color:#B9C9E8}
+.ring{position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;border:56px solid rgba(65,143,222,.16);pointer-events:none}
+
+/* Tabs */
+nav.tabs{position:sticky;top:0;z-index:20;background:var(--navy);display:flex;gap:4px;padding:0 6vw;overflow-x:auto;border-bottom:4px solid var(--blue)}
+nav.tabs button{background:none;border:none;color:#B9C9E8;font-size:14px;font-weight:700;padding:16px 16px 14px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-4px}
+nav.tabs button[aria-selected="true"]{color:#fff;border-bottom-color:#fff}
+
+main{max-width:1180px;margin:0 auto;padding:44px 24px 96px}
+.view{display:none}.view.active{display:block}
+h2{font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px}
+@media (prefers-color-scheme: dark){h2{color:#fff}}
+.intro{color:var(--muted);max-width:760px;margin-bottom:28px}
+.note{background:var(--soft);border-left:4px solid var(--blue);padding:16px 20px;border-radius:0 10px 10px 0;color:var(--ink);font-size:14px;margin-top:28px}
+
+/* Flow of activities */
+.flow{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;counter-reset:step}
+.act{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:8px;border-top:5px solid var(--c)}
+.act:hover{box-shadow:0 8px 26px rgba(0,30,98,.12)}
+.act .num{font-size:13px;font-weight:800;color:var(--c)}
+.act h3{font-size:18px;font-weight:800;line-height:1.25}
+.act .meta{font-size:13px;color:var(--muted)}
+.act .tag{align-self:flex-start;font-size:12px;font-weight:700;background:var(--soft);padding:3px 10px;border-radius:20px;color:var(--ink)}
+
+/* Dynamics */
+.dyn{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;cursor:pointer;text-align:left;color:var(--ink);display:flex;flex-direction:column;gap:10px}
+.dcard:hover{box-shadow:0 8px 26px rgba(0,30,98,.12)}
+.dcard .mod{font-size:13px;font-weight:700;color:var(--blue)}
+.dcard h3{font-size:21px;font-weight:800;color:var(--navy)}
+@media (prefers-color-scheme: dark){.dcard h3{color:#fff}}
+.dcard p{font-size:14px;color:var(--muted)}
+.dcard.pin{background:var(--navy);color:#fff;border-color:var(--navy)}
+.dcard.pin h3{color:#fff}.dcard.pin p{color:#D3DDF0}.dcard.pin .mod{color:var(--sky)}
+
+/* Gantt */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
+.chip i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.chip[aria-pressed="false"]{opacity:.45}
+.gwrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.gantt{display:grid;grid-template-columns:240px repeat(12,minmax(62px,1fr));min-width:980px}
+.gh{font-size:12px;font-weight:700;color:var(--muted);padding:12px 6px;text-align:center;border-bottom:1px solid var(--line);background:var(--soft)}
+.gh.first{text-align:left;padding-left:16px}
+.gl{font-size:13px;font-weight:700;padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center}
+.gl.sub{font-weight:500;padding-left:30px;color:var(--muted)}
+.gc{border-bottom:1px solid var(--line);border-left:1px solid var(--line);position:relative;min-height:46px}
+.bar{position:absolute;top:8px;bottom:8px;border-radius:8px;background:var(--c);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;padding:0 10px;cursor:pointer;border:none;text-align:left;overflow:hidden;white-space:nowrap;z-index:1}
+.bar.light{color:#001E62}
+
+/* Status */
+.skpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.skpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.skpi b{font-size:30px;font-weight:800;color:var(--navy);display:block;line-height:1.1}
+@media (prefers-color-scheme: dark){.skpi b{color:#fff}}
+.skpi span{font-size:13px;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+select,.btn{font-family:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 12px}
+.btn{cursor:pointer;background:var(--navy);color:#fff;border-color:var(--navy)}
+.updated{font-size:13px;color:var(--muted);margin-left:auto}
+.areas{display:flex;flex-direction:column;gap:10px}
+.arow{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.arow>button{width:100%;background:none;border:none;color:var(--ink);display:grid;grid-template-columns:150px 1fr 120px;gap:16px;align-items:center;padding:14px 18px;cursor:pointer;text-align:left;font-size:14px;font-weight:700}
+.track{height:12px;border-radius:6px;background:var(--soft);overflow:hidden}
+.fill{height:100%;background:var(--blue);border-radius:6px}
+.pct{text-align:right;font-size:13px;color:var(--muted)}
+.tiendas{display:none;padding:0 18px 16px}
+.arow.open .tiendas{display:block}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:28px;color:var(--muted);text-align:center}
+
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);font-size:14px}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:12px 14px;font-weight:700}
+.tbl td{padding:11px 14px;border-top:1px solid var(--line)}
+.tbl td.pend{color:var(--muted);font-style:italic}
+.twrap{overflow-x:auto}
+
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,20,60,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.overlay.open{display:flex}
+.modal{background:var(--card);color:var(--ink);border-radius:18px;max-width:680px;width:100%;max-height:88vh;overflow:auto}
+.mhead{background:var(--navy);color:#fff;padding:24px 28px;border-radius:18px 18px 0 0;position:relative}
+.mhead small{color:var(--sky);font-weight:700;font-size:13px}
+.mhead h3{font-size:24px;font-weight:800;margin-top:4px;padding-right:40px}
+.close{position:absolute;right:18px;top:18px;background:rgba(255,255,255,.12);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer}
+.mbody{padding:24px 28px;display:grid;gap:16px}
+.mbody h4{font-size:13px;font-weight:800;color:var(--blue);margin-bottom:4px}
+.mbody p,.mbody li{font-size:15px}
+.mbody ol{padding-left:20px;display:grid;gap:6px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.mgrid{grid-template-columns:1fr}.arow>button{grid-template-columns:1fr;gap:8px}.pct{text-align:left}.kpi{padding-right:20px;margin-right:20px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="ring"></div>
+  <div class="hero-top">
+    <img class="hero-logo" src="data:image/png;base64,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" alt="Farmatodo">
+    <span class="hero-place">Venezuela · <span id="periodo"></span></span>
+  </div>
+  <h1>Campus Farmacéutico: del despacho a la asesoría de confianza</h1>
+  <p class="lead">Plan de capacitación para Farmacéuticos y Auxiliares. Facilitadores certificados de cada área llevan los talleres y la Práctica Aplicada a todas las tiendas.</p>
+  <div class="kpis" id="heroKpis"></div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Secciones">
+  <button role="tab" aria-selected="true" data-view="v-act">Actividades</button>
+  <button role="tab" aria-selected="false" data-view="v-pa">Práctica Aplicada</button>
+  <button role="tab" aria-selected="false" data-view="v-cron">Cronograma</button>
+  <button role="tab" aria-selected="false" data-view="v-est">Estatus en vivo</button>
+  <button role="tab" aria-selected="false" data-view="v-areas">Áreas y facilitadores</button>
+</nav>
+
+<main>
+  <section class="view active" id="v-act">
+    <h2>Siete actividades, en orden</h2>
+    <p class="intro">Las actividades 3 y 4 ocurren en paralelo. La medición de NPS es transversal: empieza con la línea base y se lee cada mes. Toca una actividad para ver el detalle.</p>
+    <div class="flow" id="flow"></div>
+    <div class="note" id="supuestos"></div>
+  </section>
+
+  <section class="view" id="v-pa">
+    <h2>Práctica Aplicada en las salas de área</h2>
+    <p class="intro">Cada módulo tiene un taller de 2,5 horas en la sala del área, dictado por sus dos facilitadores, y un reto que se lleva a la tienda durante el mes. Todos los participantes viven la dinámica: si es para pocos, se repite hasta que todos hayan pasado. Toca una dinámica para ver su instructivo.</p>
+    <div class="dyn" id="dyn"></div>
+  </section>
+
+  <section class="view" id="v-cron">
+    <h2>Cronograma</h2>
+    <p class="intro">Cada módulo de etapa de vida ocupa dos meses: el primero es el ciclo 1 (instalar) y el segundo el ciclo 2 (reforzar y recuperar ausentes). Filtra por actividad o toca una barra para ver el detalle.</p>
+    <div class="chips" id="chips"></div>
+    <div class="gwrap"><div class="gantt" id="gantt"></div></div>
+  </section>
+
+  <section class="view" id="v-est">
+    <h2>Estatus de participación</h2>
+    <p class="intro">Avance de los talleres por área y por tienda. Solo se muestran totales.</p>
+    <div class="toolbar">
+      <label for="selAct" style="font-size:14px;font-weight:700">Actividad</label>
+      <select id="selAct"></select>
+      <button class="btn" id="btnRefresh">Actualizar</button>
+      <span class="updated" id="updated"></span>
+    </div>
+    <div class="skpis" id="skpis"></div>
+    <div class="areas" id="areaRows"></div>
+  </section>
+
+  <section class="view" id="v-areas">
+    <h2>Áreas, salas y facilitadores</h2>
+    <p class="intro">Mínimo dos Farmacéuticos Facilitadores certificados por área. Los talleres se dictan en la sala de capacitación de cada área.</p>
+    <div class="twrap"><table class="tbl" id="areasTbl"></table></div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal">
+    <div class="mhead"><small id="mEyebrow"></small><h3 id="mTitle"></h3><button class="close" id="mClose" aria-label="Cerrar">×</button></div>
+    <div class="mbody" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CONFIGURACIÓN · edita solo esta sección
+   ══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  periodo: 'Noviembre 2026 – Octubre 2027',
+  // URL de la Web App de Google Apps Script que devuelve el estatus (ver README). Vacío = sin datos en vivo.
+  statusUrl: '',
+  facilitadoresPorArea: 2,
+  // Completa nombre, sala, facilitadores y número de tiendas de cada área.
+  areas: Array.from({ length: 16 }, (_, i) => ({
+    nombre: `Área ${i + 1}`,
+    sala: '',
+    facilitadores: ['', ''],
+    tiendas: null
+  }))
+};
+
+const MESES = [['2026-11','Nov 26'],['2026-12','Dic'],['2027-01','Ene 27'],['2027-02','Feb'],['2027-03','Mar'],['2027-04','Abr'],['2027-05','May'],['2027-06','Jun'],['2027-07','Jul'],['2027-08','Ago'],['2027-09','Sep'],['2027-10','Oct']];
+
+const ACTIVIDADES = [
+  { id:1, corto:'Preparación', nombre:'Preparación del plan', c:'--c1', ini:'2026-11', fin:'2026-12',
+    poblacion:'Gerencia de Capacitación', duracion:'2 meses', responsable:'Gerencia de Capacitación',
+    contenido:'Validación académica de los contenidos, kit del facilitador (guía minuto a minuto, presentaciones, casos y rúbricas), calendario de salas por área y materiales de las dinámicas.' },
+  { id:2, corto:'Formación de facilitadores', nombre:'Formación de Farmacéuticos Facilitadores', c:'--c2', ini:'2026-11', fin:'2027-03',
+    poblacion:'32 farmacéuticos: 2 por cada una de las 16 áreas', duracion:'Taller de 16 horas · 2 cohortes de 16', responsable:'Gerencia de Capacitación',
+    contenido:'Selección en noviembre; formación en dos cohortes (noviembre y diciembre) en aprendizaje adulto, facilitación de role play, manejo de grupo y retroalimentación. Co-facilitan junto a Capacitación en el piloto y se certifican con un taller observado.' },
+  { id:3, corto:'Dispensación con propósito', nombre:'Taller Dispensación con propósito', c:'--c3', ini:'2027-01', fin:'2027-06',
+    poblacion:'Farmacéuticos de todas las tiendas · 1 por tienda en cada grupo', duracion:'2,5 horas', responsable:'Facilitadores del área (piloto con Capacitación)',
+    contenido:'Protocolo de asesoría en 5 pasos: saludar y escuchar, preguntar con intención, aconsejar con claridad, verificar comprensión y cerrar con seguimiento. Piloto en una región en enero y febrero; despliegue nacional de marzo a junio.' },
+  { id:4, corto:'Atención en el mostrador', nombre:'Taller Atención en el mostrador', c:'--c4', ini:'2027-01', fin:'2027-06',
+    poblacion:'Auxiliares de farmacia', duracion:'Por confirmar', responsable:'Facilitadores del área',
+    contenido:'Ruta paralela para Auxiliares, para que el cliente reciba el mismo estándar de servicio en todo el mostrador.' },
+  { id:5, corto:'Práctica Aplicada', nombre:'Práctica Aplicada · Consejo por etapa de vida', c:'--c5', ini:'2027-01', fin:'2027-10',
+    poblacion:'Farmacéuticos · 1 por tienda en cada grupo', duracion:'2,5 horas por taller + reto del mes en tienda', responsable:'Facilitadores del área',
+    contenido:'Un módulo cada dos meses, en dos ciclos: GLP-1, adulto mayor, menopausia, salud de la mujer y antienvejecimiento. Cada módulo tiene su dinámica propia y un reto en tienda.' },
+  { id:6, corto:'Certificación', nombre:'Certificación Asesor de Salud Farmatodo', c:'--c7', ini:'2027-07', fin:'2027-10',
+    poblacion:'Farmacéuticos que completan la ruta', duracion:'Evaluación práctica', responsable:'Facilitadores del área con Capacitación',
+    contenido:'Evaluación práctica con cliente simulado y observación del Regente en tienda. Distintivo visible para el cliente.' },
+  { id:7, corto:'Medición NPS', nombre:'Línea base y medición del NPS', c:'--c6', ini:'2026-11', fin:'2027-10', transversal:true,
+    poblacion:'Todas las tiendas', duracion:'Lectura mensual', responsable:'Capacitación con Experiencia del Cliente',
+    contenido:'Línea base de NPS por tienda en noviembre y diciembre. Lectura mensual comparando tiendas formadas con tiendas aún no formadas. Nueva pregunta en la encuesta: «¿El farmacéutico te asesoró?».' }
+];
+
+// Sub-filas de Práctica Aplicada en el cronograma (ciclo 1 + ciclo 2)
+const MODULOS = [
+  { nombre:'Peso y salud metabólica (GLP-1)', ini:'2027-01', fin:'2027-02', dyn:'glp1' },
+  { nombre:'Adulto mayor', ini:'2027-03', fin:'2027-04', dyn:'mayor' },
+  { nombre:'Edad y menopausia', ini:'2027-05', fin:'2027-06', dyn:'meno' },
+  { nombre:'Salud de la mujer', ini:'2027-07', fin:'2027-08', dyn:'mujer' },
+  { nombre:'Antienvejecimiento', ini:'2027-09', fin:'2027-10', dyn:'anti' }
+];
+
+const DINAMICAS = [
+  { id:'dcp', modulo:'Dispensación con propósito', nombre:'Tú haces, yo observo', resumen:'El participante atiende a un cliente simulado y el facilitador observa con la lista de chequeo.',
+    objetivo:'Aplicar el protocolo de asesoría en 5 pasos con retroalimentación inmediata.', materiales:'Lista de chequeo del protocolo, 6 casos de cliente simulado y productos de muestra.',
+    dinamica:['Un participante atiende y otro hace de cliente con un caso sorteado.','El facilitador observa con la lista de chequeo de los 5 pasos.','Retroalimentación de 2 minutos: qué hizo bien y qué cambiaría.','Se rota hasta que todos hayan atendido al menos una vez.'],
+    cierre:'Cada participante anota el paso que más le cuesta y cómo lo practicará en su tienda.', reto:'Aplicar el protocolo y registrar un caso por semana.' },
+  { id:'glp1', modulo:'Peso y salud metabólica (GLP-1)', nombre:'Ruleta del paciente', resumen:'Una ruleta define el perfil del paciente y hay un minuto para asesorar.',
+    objetivo:'Asesorar con seguridad sobre GLP-1: expectativas, efectos adversos y criterio de derivación.', materiales:'Ruleta digital con dos ruedas: perfil del paciente y situación.',
+    dinamica:['En parejas, uno es paciente y otro farmacéutico.','El paciente gira la ruleta (con o sin prescripción, efectos adversos, expectativas irreales) y lee la situación.','El farmacéutico tiene un minuto para asesorar; luego se intercambian los roles.'],
+    cierre:'El grupo analiza: ¿indagó la prescripción?, ¿manejó expectativas?, ¿derivó cuando correspondía?', reto:'Detectar y orientar casos de uso sin prescripción.' },
+  { id:'mayor', modulo:'Adulto mayor', nombre:'La bolsa de medicamentos', resumen:'Contrarreloj por parejas para revisar los medicamentos de un adulto mayor.',
+    objetivo:'Detectar duplicidades, interacciones y riesgos de caída en pacientes polimedicados.', materiales:'Bolsas simuladas con 8 a 10 empaques y ficha del paciente.',
+    dinamica:['Cada pareja recibe una bolsa y la ficha de un adulto mayor.','Tienen 8 minutos para listar duplicidades, interacciones y riesgos de caída.','Se comparan hallazgos con la hoja de respuestas; se repite con otra bolsa hasta que todos pasen.'],
+    cierre:'Mensaje clave: con el adulto mayor y su cuidador, revisar todo lo que toma antes de recomendar algo nuevo.', reto:'Ofrecer la revisión de bolsa a cuidadores.' },
+  { id:'meno', modulo:'Edad y menopausia', nombre:'Cine foro de la consulta', resumen:'Escenas grabadas internamente para analizar cómo se atiende la consulta.',
+    objetivo:'Reconocer buenas prácticas y lenguaje sin estigma en consultas sobre menopausia.', materiales:'4 escenas cortas grabadas con farmacéuticos de Farmatodo y equipo para proyectarlas.',
+    dinamica:['El facilitador proyecta una escena.','El grupo identifica qué hizo bien el farmacéutico y qué cambiaría.','Dos voluntarios reactúan la escena mejorada; se repite con las 4 escenas.'],
+    cierre:'Conclusiones del grupo sobre cómo acompañar esta etapa con empatía y evidencia.', reto:'Practicar el lenguaje sin estigma en cada consulta.' },
+  { id:'mujer', modulo:'Salud de la mujer', nombre:'Consulta discreta', resumen:'Role playing de consultas íntimas con un observador.',
+    objetivo:'Atender consultas íntimas con privacidad, empatía y criterio de derivación.', materiales:'4 situaciones de role playing y rúbrica del observador.',
+    dinamica:['En tríos: farmacéutico, clienta y observador.','Se representa una situación de consulta íntima.','El observador evalúa privacidad, empatía y derivación; se rotan los roles.'],
+    cierre:'El grupo acuerda cómo crear un espacio discreto en el mostrador de cada tienda.', reto:'Asegurar un espacio discreto para estas consultas.' },
+  { id:'anti', modulo:'Antienvejecimiento', nombre:'Mito o evidencia', resumen:'Concurso por equipos sobre afirmaciones de productos y suplementos.',
+    objetivo:'Recomendar solo lo que tiene respaldo y explicarlo con claridad al cliente.', materiales:'Tarjetas con afirmaciones, tablero de puntos y fichas de evidencia.',
+    dinamica:['Equipos de 4 participantes.','El facilitador lee una afirmación; cada equipo decide si es mito o evidencia y lo justifica.','Gana el punto quien acierta y explica mejor; reconocimiento al equipo ganador.'],
+    cierre:'Mensaje clave: la confianza del cliente se gana recomendando con evidencia.', reto:'Recomendar solo con evidencia y explicarla al cliente.' },
+  { id:'pin', modulo:'Transversal · todo el plan', nombre:'Pin del Asesor', pin:true, resumen:'Un pin circula entre los farmacéuticos del área y premia la asesoría destacada.',
+    objetivo:'Instalar el hábito de asesorar y reconocer a quien lo hace bien.', materiales:'Pines de reconocimiento e instructivo para el Regente.',
+    dinamica:['Se lanza en el taller de Dispensación con propósito.','El pin lo recibe quien logra una asesoría destacada, validada por el Regente.','El pin pasa al siguiente farmacéutico que lo gane.'],
+    cierre:'Seguimiento diario: «¿A quién asesoraste hoy y qué cambió para él?»', reto:'Compartir cada mes las asesorías destacadas del área.' }
+];
+
+const SUPUESTOS = 'Supuestos del plan: 16 áreas con sala de capacitación propia; mínimo 2 facilitadores certificados por área; 1 farmacéutico por tienda en cada grupo para no dejar farmacias sin cobertura; módulos de etapa de vida en dos ciclos de un mes cada uno; piloto en una región en enero y febrero de 2027.';
+
+/* ══════════════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+const mi = ym => MESES.findIndex(m => m[0] === ym);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rango = (a,b) => `${MESES[mi(a)][1]} – ${MESES[mi(b)][1]}`;
+
+// Tabs
+document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('nav.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === b.dataset.view));
+  window.scrollTo({ top: document.querySelector('nav.tabs').offsetTop, behavior: 'instant' });
+}));
+
+// Modal
+function openModal(eyebrow, title, html){
+  $('mEyebrow').textContent = eyebrow; $('mTitle').textContent = title; $('mBody').innerHTML = html;
+  $('overlay').classList.add('open'); $('mClose').focus();
+}
+const closeModal = () => $('overlay').classList.remove('open');
+$('mClose').onclick = closeModal;
+$('overlay').addEventListener('click', e => { if (e.target.id === 'overlay') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function showAct(id){
+  const a = ACTIVIDADES.find(x => x.id === id);
+  let extra = '';
+  if (id === 5) extra = `<div><h4>Módulos</h4><ol>${MODULOS.map(m => `<li>${esc(m.nombre)} · ${rango(m.ini, m.fin)}</li>`).join('')}</ol></div>`;
+  openModal(`Actividad ${a.id} · ${rango(a.ini, a.fin)}`, a.nombre, `
+    <div class="mgrid"><div><h4>Población</h4><p>${esc(a.poblacion)}</p></div><div><h4>Duración</h4><p>${esc(a.duracion)}</p></div></div>
+    <div><h4>Responsable</h4><p>${esc(a.responsable)}</p></div>
+    <div><h4>Contenido</h4><p>${esc(a.contenido)}</p></div>${extra}`);
+}
+function showDyn(id){
+  const d = DINAMICAS.find(x => x.id === id);
+  openModal(d.modulo, d.nombre, `
+    <div><h4>Objetivo</h4><p>${esc(d.objetivo)}</p></div>
+    <div><h4>Materiales</h4><p>${esc(d.materiales)}</p></div>
+    <div><h4>Dinámica</h4><ol>${d.dinamica.map(s => `<li>${esc(s)}</li>`).join('')}</ol></div>
+    <div><h4>Cierre</h4><p>${esc(d.cierre)}</p></div>
+    <div><h4>Reto en tienda durante el mes</h4><p>${esc(d.reto)}</p></div>`);
+}
+
+// Render: hero
+$('periodo').textContent = CONFIG.periodo;
+const nFac = CONFIG.areas.length * CONFIG.facilitadoresPorArea;
+$('heroKpis').innerHTML = [[CONFIG.areas.length,'áreas'],[nFac,'facilitadores certificados'],[ACTIVIDADES.length,'actividades'],[MODULOS.length,'módulos de etapa de vida'],[2,'ciclos por módulo']]
+  .map(([v,l]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join('');
+
+// Render: activities
+$('flow').innerHTML = ACTIVIDADES.map(a => `
+  <button class="act" style="--c:var(${a.c})" onclick="showAct(${a.id})">
+    <span class="num">${a.transversal ? 'Transversal' : 'Paso ' + a.id}</span>
+    <h3>${esc(a.nombre)}</h3>
+    <span class="meta">${esc(a.poblacion)}</span>
+    <span class="tag">${rango(a.ini, a.fin)}</span>
+  </button>`).join('');
+$('supuestos').textContent = SUPUESTOS;
+
+// Render: dynamics
+$('dyn').innerHTML = DINAMICAS.map(d => {
+  const m = MODULOS.find(x => x.dyn === d.id);
+  const when = m ? ` · ${rango(m.ini, m.fin)}` : d.id === 'dcp' ? ' · Ene – Jun 27' : '';
+  return `<button class="dcard${d.pin ? ' pin' : ''}" onclick="showDyn('${d.id}')">
+    <span class="mod">${esc(d.modulo)}${when}</span><h3>${esc(d.nombre)}</h3><p>${esc(d.resumen)}</p></button>`;
+}).join('');
+
+// Render: gantt
+const visibles = new Set(ACTIVIDADES.map(a => a.id));
+$('chips').innerHTML = ACTIVIDADES.map(a => `<button class="chip" aria-pressed="true" data-id="${a.id}" style="--c:var(${a.c})"><i></i>${esc(a.corto)}</button>`).join('');
+$('chips').querySelectorAll('.chip').forEach(ch => ch.addEventListener('click', () => {
+  const id = +ch.dataset.id; visibles.has(id) ? visibles.delete(id) : visibles.add(id);
+  ch.setAttribute('aria-pressed', visibles.has(id)); renderGantt();
+}));
+function row(label, ini, fin, c, onclick, sub, light){
+  const s = mi(ini), e = mi(fin);
+  let h = `<div class="gl${sub ? ' sub' : ''}">${esc(label)}</div>`;
+  for (let i = 0; i < 12; i++) {
+    h += `<div class="gc">`;
+    if (i === s) h += `<button class="bar${light ? ' light' : ''}" style="--c:var(${c});left:4px;width:calc(${(e - s + 1) * 100}% - 8px + ${(e - s)}px)" onclick="${onclick}">${sub ? 'Ciclo 1 · Ciclo 2' : rango(ini, fin)}</button>`;
+    h += `</div>`;
+  }
+  return h;
+}
+function renderGantt(){
+  let h = `<div class="gh first">Actividad</div>` + MESES.map(m => `<div class="gh">${m[1]}</div>`).join('');
+  ACTIVIDADES.filter(a => visibles.has(a.id)).forEach(a => {
+    h += row(a.nombre, a.ini, a.fin, a.c, `showAct(${a.id})`, false, a.c === '--c2' || a.c === '--c1');
+    if (a.id === 5) MODULOS.forEach(m => { h += row(m.nombre, m.ini, m.fin, '--c5', `showDyn('${m.dyn}')`, true); });
+  });
+  $('gantt').innerHTML = h;
+}
+renderGantt();
+
+// Render: areas table
+const pend = v => v ? esc(v) : '<span>Por definir</span>';
+$('areasTbl').innerHTML = `<tr><th>Área</th><th>Sala de capacitación</th><th>Facilitador 1</th><th>Facilitador 2</th><th>Tiendas</th></tr>` +
+  CONFIG.areas.map(a => `<tr><td><b>${esc(a.nombre)}</b></td>
+    <td class="${a.sala ? '' : 'pend'}">${pend(a.sala)}</td>
+    <td class="${a.facilitadores[0] ? '' : 'pend'}">${pend(a.facilitadores[0])}</td>
+    <td class="${a.facilitadores[1] ? '' : 'pend'}">${pend(a.facilitadores[1])}</td>
+    <td class="${a.tiendas ? '' : 'pend'}">${a.tiendas ?? 'Por definir'}</td></tr>`).join('');
+
+// Status (live)
+const ACT_ESTATUS = [{ k:'dcp', n:'Dispensación con propósito' },{ k:'mostrador', n:'Atención en el mostrador' },{ k:'glp1', n:'GLP-1' },{ k:'mayor', n:'Adulto mayor' },{ k:'meno', n:'Menopausia' },{ k:'mujer', n:'Salud de la mujer' },{ k:'anti', n:'Antienvejecimiento' }];
+$('selAct').innerHTML = ACT_ESTATUS.map(a => `<option value="${a.k}">${a.n}</option>`).join('');
+let STATUS = null;
+async function loadStatus(){
+  if (!CONFIG.statusUrl) { STATUS = null; renderStatus(); return; }
+  $('updated').textContent = 'Actualizando…';
+  try {
+    const r = await fetch(CONFIG.statusUrl + (CONFIG.statusUrl.includes('?') ? '&' : '?') + 't=' + Date.now());
+    STATUS = await r.json();
+  } catch (e) { STATUS = { error: true }; }
+  renderStatus();
+}
+function renderStatus(){
+  const k = $('selAct').value;
+  if (!STATUS || STATUS.error) {
+    $('updated').textContent = STATUS?.error ? 'No se pudo leer la hoja de asistencia' : '';
+    $('skpis').innerHTML = '';
+    $('areaRows').innerHTML = `<div class="empty">${CONFIG.statusUrl ? 'No fue posible cargar los datos. Revisa la URL de la Web App y sus permisos.' : 'Aún no hay datos en vivo. Cuando la hoja de asistencia esté lista, coloca la URL de su Web App en <b>CONFIG.statusUrl</b> (instrucciones en el README).'}</div>`;
+    return;
+  }
+  $('updated').textContent = STATUS.actualizado ? 'Actualizado: ' + STATUS.actualizado : '';
+  const areas = (STATUS.areas || []).map(a => { const d = (a.actividades || {})[k] || { formados:0, meta:0, tiendas:[] }; return { nombre:a.nombre, ...d }; });
+  const tF = areas.reduce((s,a) => s + (a.formados || 0), 0), tM = areas.reduce((s,a) => s + (a.meta || 0), 0);
+  const pct = (f,m) => m ? Math.round(100 * f / m) : 0;
+  $('skpis').innerHTML = [[tF,'participantes formados'],[tM,'meta de participantes'],[pct(tF,tM) + '%','avance nacional'],[areas.filter(a => a.meta && a.formados >= a.meta).length + ' / ' + areas.length,'áreas completas']]
+    .map(([v,l]) => `<div class="skpi"><b>${v}</b><span>${l}</span></div>`).join('');
+  $('areaRows').innerHTML = areas.map((a,i) => `
+    <div class="arow" id="ar${i}"><button aria-expanded="false" onclick="toggleArea(${i})">
+      <span>${esc(a.nombre)}</span><div class="track"><div class="fill" style="width:${pct(a.formados,a.meta)}%"></div></div>
+      <span class="pct">${a.formados || 0} / ${a.meta || 0} · ${pct(a.formados,a.meta)}%</span></button>
+      <div class="tiendas">${(a.tiendas || []).length ? `<div class="twrap"><table class="tbl"><tr><th>Tienda</th><th>Formados</th><th>Meta</th><th>Avance</th></tr>${a.tiendas.map(t => `<tr><td>${esc(t.nombre)}</td><td>${t.formados || 0}</td><td>${t.meta || 0}</td><td>${pct(t.formados,t.meta)}%</td></tr>`).join('')}</table></div>` : '<p style="font-size:14px;color:var(--muted)">Sin detalle por tienda.</p>'}</div>
+    </div>`).join('');
+}
+function toggleArea(i){ const r = $('ar' + i); r.classList.toggle('open'); r.querySelector('button').setAttribute('aria-expanded', r.classList.contains('open')); }
+$('selAct').onchange = renderStatus;
+$('btnRefresh').onclick = loadStatus;
+loadStatus();
+</script>
+</body>
+</html>
